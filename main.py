@@ -113,7 +113,6 @@ async def ask(message: str, choice: list[Choice]):
         qmark="📝",
         style=style,
         use_arrow_keys=True,
-        use_indicator=True,
         use_jk_keys=True,
         instruction="Use [enter] to confirm",
     ).ask_async()
@@ -133,7 +132,7 @@ async def search_for_job(query: str):
             message="Select a job",
             choice=[Choice(job.title, value=job.job_id) for job in jobs],
         )
-        console.log(ans)
+
         job = await EthioJobs().get_job(ans)
         await JobView(job).run_async()
 
@@ -152,9 +151,6 @@ async def get_government_jobs():
             message="Select a job",
             choice=[Choice(job.company, value=job.job) for job in jobs],
         )
-        console.log(ans)
-        # job = await EthioJobs().get_job(ans)
-        # await JobView(job).run_async()
 
 
 async def get_news(page: int) -> None:
@@ -178,7 +174,7 @@ async def get_news(page: int) -> None:
                 for news in news
             ],
         )
-        console.log(ans)
+
         news = await voa.get(ans)
         await NewsView(news).run_async()
 
@@ -204,7 +200,6 @@ async def search_news(query: str, page: int = 1, limit: int = 10) -> None:
                 for news in news
             ],
         )
-        console.log(ans)
         news = await voa.get(ans)
         await NewsView(news).run_async()
 

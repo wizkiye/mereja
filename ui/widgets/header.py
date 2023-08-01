@@ -95,7 +95,7 @@ class Header(Widget):
     def __init__(
         self,
         show_clock: bool = False,
-        title: str = "</> with :heart: by @wizkiye",
+        title: str = "</> with ❤️ by @wizkiye",
         *,
         classes: str | None = None,
     ):
