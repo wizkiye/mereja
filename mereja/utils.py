@@ -5,6 +5,7 @@ import re
 import time
 from contextlib import contextmanager
 from functools import wraps
+from pathlib import Path
 from typing import Callable
 
 import httpx
@@ -112,9 +113,9 @@ def with_live(text: str):
                 except KeyboardInterrupt:
                     print("Exiting...")
                     exit(0)
-                except Exception as e:
-                    print(e)
-                    exit(1)
+                # except Exception as e:
+                #     print(e)
+                #     exit(1)
 
         return wrapper
 
@@ -134,5 +135,9 @@ async def show_forex_data(status: Status = None) -> None:
 
 
 def save_file(file_name: str, content: str):
-    with open(file_name, "w") as f:
-        f.write(content)
+    Path(file_name).write_text(content)
+
+
+def get_path(p: str | None, name: str) -> str:
+    p = p or "."
+    return p if p.endswith(".json") else p + f"/{name}.json"

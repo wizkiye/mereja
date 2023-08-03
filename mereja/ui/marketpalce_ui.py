@@ -25,7 +25,13 @@ def make_layout() -> Layout:
         Layout(name="body", ratio=2, minimum_size=60),
     )
 
-    layout["side"].split(Layout(name="seller"), Layout(name="qr", ratio=2))
+    layout["side"].split(
+        Layout(name="seller"),
+        Layout(
+            name="qr",
+            ratio=2,
+        ),
+    )
     return layout
 
 
@@ -120,7 +126,14 @@ def start_market_ui(product: Product):
             title_align="center",
         )
     )
-    layout["qr"].update(Panel(Align.center(qr), border_style="cyan", title="QR Code"))
+    layout["qr"].update(
+        Panel(
+            Align.center(qr),
+            border_style="cyan",
+            title="QR Code",
+            subtitle="Scan to view on your phone",
+        )
+    )
     with Live(layout, refresh_per_second=1, screen=True):
         while True:
             try:

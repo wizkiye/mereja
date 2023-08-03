@@ -11,15 +11,33 @@ def runner(args):
         if args.job:
             if args.search:
                 loop.run_until_complete(jobs.search_for_job(query=args.search))
-            elif args.gov:
-                loop.run_until_complete(jobs.get_government_jobs())
+            # elif args.gov:
+            #     loop.run_until_complete(jobs.get_government_jobs())
             elif args.latest:
+                if args.export:
+                    loop.run_until_complete(
+                        jobs.export_latest_jobs(path=args.path, limit=args.limit)
+                    )
+                    return
                 loop.run_until_complete(jobs.get_latest_jobs())
 
         elif args.news:
-            if args.page:
-                loop.run_until_complete(news.get_news(args.page))
-            elif args.search:
+            if args.export:
+                loop.run_until_complete(
+                    news.export_news(
+                        path=args.path,
+                        limit=args.limit,
+                        page=args.page + 1 if not args.page else args.page,
+                    )
+                )
+                return
+            if args.search:
+                if args.export:
+                    loop.run_until_complete(
+                        news.export_news(
+                            query=args.search, path=args.path, limit=args.limit
+                        )
+                    )
                 loop.run_until_complete(
                     news.search_news(
                         query=args.search, page=args.page, limit=args.limit
@@ -29,9 +47,15 @@ def runner(args):
 
         elif args.marketplace:
             if args.trending:
+                if args.export:
+                    loop.run_until_complete(
+                        market.export_products(path=args.path, limit=args.limit)
+                    )
+                    return
                 loop.run_until_complete(
                     market.get_trending_products(
-                        args.page + 1 if not args.page else args.page
+                        page=args.page + 1 if not args.page else args.page,
+                        limit=args.limit,
                     )
                 )
             if args.search:
@@ -46,16 +70,15 @@ def runner(args):
             if args.transaction:
                 if args.export:
                     loop.run_until_complete(
-                        telebirr.export_transaction(
-                            args.transaction, args.path, args.format
-                        )
+                        telebirr.export_transaction(args.transaction, args.path)
                     )
-                else:
-                    loop.run_until_complete(
-                        telebirr.check_transaction(args.transaction)
-                    )
+                    return
+                loop.run_until_complete(telebirr.check_transaction(args.transaction))
 
         elif args.forex:
+            if args.export:
+                loop.run_until_complete(forex.export_forex_data(args.path))
+                return
             loop.run_until_complete(forex.get_forex(args.live))
 
         elif args.export:
@@ -78,7 +101,7 @@ def main():
     parser.add_argument("--news", "-n", action="store_true", help="News")
 
     # job args
-    parser.add_argument("--gov", "-g", action="store_true", help="Get government jobs.")
+    # parser.add_argument("--gov", "-g", action="store_true", help="Get government jobs.")
     parser.add_argument("--latest", "-lt", action="store_true", help="Get latest jobs.")
 
     # market args
