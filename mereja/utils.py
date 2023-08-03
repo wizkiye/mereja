@@ -122,17 +122,6 @@ def with_live(text: str):
     return decorator
 
 
-@with_live("Getting forex data...")
-async def show_forex_data(status: Status = None) -> None:
-    await asyncio.sleep(5)
-    forex_data = await get_forex_data()
-
-    if not forex_data:
-        status.console.print("[bold yellow]No forex found")
-        return
-    status.stop()
-    return status.console.print(forex_data)
-
 
 def save_file(file_name: str, content: str):
     Path(file_name).write_text(content)

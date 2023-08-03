@@ -78,15 +78,17 @@ SPINNERS = [
 ]
 STYLE = questionary.Style(
     [
-        ("qmark", "fg:#673ab7 bold"),
-        ("question", "bold"),
-        ("answer", "fg:#27781e italic"),
+        ("qmark", "fg:red bold"),
+        ("question", "fg:yellow bold"),
+        ("highlighted", "fg:#673AB7 bold"),
+        ("answer", "fg:#2196f3 bold"),
         ("pointer", "fg:#27781e bold"),
-        ("highlighted", "fg:#27781e italic"),
-        ("selected", "fg:#cc5454"),
+        # ("highlighted", "fg:#27781e bold"),
+        # ("selected", "fg:#cc5454 bold"),
         ("separator", "italic fg:#7c7d6b"),
-        ("instruction", ""),
-        ("text", "bold fg:#5cedd5"),
+        ("instruction", "fg:#f02634"),
         ("disabled", "fg:#858585 italic"),
+        ("qmark", "fg:#673ab7 bold"),
+        ("text", "fg:#68687d"),
     ]
 )

@@ -55,7 +55,7 @@ async def get_trending_products(status: Status, limit: int, page: int = 1) -> No
         message="Select a product",
         choice=[
             Choice(
-                f"{product.title} - [{product.price} ETB{f' ({product.price_type})' if product.price_type else ''}]",
+                f"{product.title} - [{product.price} ETB] {f' ({product.price_type})' if product.price_type else 'Fixed'}",
                 value=product.id,
             )
             for product in products

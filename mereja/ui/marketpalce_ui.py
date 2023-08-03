@@ -62,7 +62,7 @@ def product_details(product: Product) -> Panel:
         f"[b]Posted:[/b] ",
         f"[blue b]:date: {product.date_created.strftime('%d %b %Y')}[/blue b]",
     )
-    details.add_row(f"[b]Views:[/b]", f"[blue b]:eye: {product.page_views}[/blue b]")
+    details.add_row(f"[b]Views:[/b]", f"[blue b]:eye:  {product.page_views}[/blue b]")
     details.add_row(
         f"[b]Likes:[/b]", f"[blue b]:thumbsup: {product.fav_count}[/blue b]"
     )
@@ -104,7 +104,7 @@ def user_details(user: User) -> Align:
         f"[b]Phone Number:[/b] [blue]{', '.join(user.phones)}[/blue]\n"
         f"[b]Email:[/b] [blue]{user.email}[/blue]\n"
         f"[b]lastSeen:[/b] [blue]{user.last_seen}[/blue]\n"
-        f"[b]Registered at:[/b] [blue]{user.user_registered}[/blue]\n",
+        f"[b]Registered at:[/b] [blue]{user.user_registered}[/blue] [b]ago\n",
         vertical="middle",
     )
 
