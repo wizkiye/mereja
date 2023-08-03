@@ -16,13 +16,7 @@ setup(
     author="Kidus",
     author_email="wizkiye@gmail.com",
     description="",
-    install_requires=[read_file("requirements.txt").split("\n")],
-    dependency_links=[
-        "https://github.com/wizkiye/pyethiojobs.git",
-        "git+https://github.com/wizkiye/pyEthioNewsApi.git",
-        "git+https://github.com/wizkiye/telebirr-tx-checker.git",
-        "git+ttps://github.com/wizkiye/pyJiji.git",
-    ],
+    install_requires=[],
     entry_points={
         "console_scripts": [
             "mereja = mereja.main:main",
