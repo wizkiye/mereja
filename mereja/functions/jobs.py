@@ -44,6 +44,7 @@ async def get_government_jobs(status: Status):
 
 @with_live("Searching for latest jobs...")
 async def get_latest_jobs(status: Status):
+    print("Getting latest jobs...")
     jobs = await EthioJobs().get_latest_jobs()
     if not jobs:
         status.console.print("[bold yellow]No jobs found")
