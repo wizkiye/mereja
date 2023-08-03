@@ -28,6 +28,7 @@ setup(
         "pyEthioJobs==0.0.5",
         "pyEthioNews==1.0.0",
         "jiji>=0.0.1",
+        "telebirrTxChecker",
     ],
     entry_points={
         "console_scripts": [
