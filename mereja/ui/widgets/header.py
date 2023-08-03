@@ -98,8 +98,9 @@ class Header(Widget):
         title: str = "</> with ❤️ by @wizkiye",
         *,
         classes: str | None = None,
+        id: str | None = None,
     ):
-        super().__init__(classes=classes)
+        super().__init__(classes=classes, id=id)
         self._show_clock = show_clock
         self.title = title
 

@@ -1,0 +1,10 @@
+emoji
+rich
+textual
+markdownify
+asyncio
+httpx
+qrcode
+questionary
+bs4
+beautifulsoup4
