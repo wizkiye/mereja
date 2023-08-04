@@ -160,3 +160,13 @@ def awaitable(func):
 def no_ans_or_back(ans: str):
     if not ans:
         raise KeyboardInterrupt
+
+
+def clean_emoji(text: str) -> str:
+    return re.compile(
+        "[^\U00000000-\U0000d7ff\U0000e000-\U0000ffff]", flags=re.UNICODE
+    ).sub("", text)
+
+
+if __name__ == "__main__":
+    print(clean_emoji("hello 🔙"))

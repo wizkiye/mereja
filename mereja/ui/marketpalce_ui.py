@@ -9,7 +9,7 @@ from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
 
-from mereja.utils import make_qr, bold_numbers
+from mereja.utils import make_qr, bold_numbers, clean_emoji
 
 
 def make_layout() -> Layout:
@@ -97,11 +97,11 @@ class Header:
 
 def user_details(user: User) -> Align:
     return Align.center(
-        f"[b]Seller Name:[/b] [u blue]{user.name}[/u blue]\n"
-        f"[b]Phone Number:[/b] [blue]{', '.join(user.phones)}[/blue]\n"
-        f"[b]Email:[/b] [blue]{user.email}[/blue]\n"
-        f"[b]lastSeen:[/b] [blue]{user.last_seen}[/blue]\n"
-        f"[b]Registered at:[/b] [blue]{user.user_registered}[/blue] [b]ago\n",
+        f"[b]Seller Name:[/b] [u blue]🙎 {clean_emoji(user.name)}[/u blue]\n"
+        f"[b]Phone Number:[/b] [blue]📞 {', '.join(user.phones)}[/blue]\n"
+        f"[b]Email:[/b] [blue]📧 {user.email}[/blue]\n"
+        f"[b]lastSeen:[/b] [blue]👀 {user.last_seen}[/blue]\n"
+        f"[b]Registered at:[/b] [blue]📅 {user.user_registered}[/blue] [b]ago\n",
         vertical="middle",
     )
 
