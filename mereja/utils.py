@@ -25,6 +25,7 @@ class Back(Exception):
     pass
 
 
+# utility functions
 def random_spinner():
     return random.choice(constants.SPINNERS)
 
@@ -63,6 +64,7 @@ async def get_forex_data() -> List[dict]:
         ]
 
 
+# table functions
 def loop_colum(table: Table, columns: List):
     for column in columns:
         with beat(5):
@@ -76,13 +78,6 @@ def loop_row(table: Table, rows: List[tuple]):
 
 
 async def ask(message: str, choice: List[Choice]):
-    # choice.append(
-    #     Choice(
-    #         title="🔙 Back",
-    #         value="back",
-    #     )
-    # )
-
     return await questionary.select(
         message=message,
         choices=choice,
@@ -122,8 +117,6 @@ def with_live(text: str):
                     console.print("[bold red]No internet connection.")
                     exit(1)
                 except KeyboardInterrupt:
-                    # print("Exiting...")
-                    # exit(0)
                     return
                 except ConnectTimeout:
                     console.print("[bold red]Connection timeout.")
@@ -164,9 +157,6 @@ def no_ans_or_back(ans: str):
 
 def clean_emoji(text: str) -> str:
     return re.compile(
-        "[^\U00000000-\U0000d7ff\U0000e000-\U0000ffff]", flags=re.UNICODE
+        "[^\U00000000-\U0000d7ff\U0000e000-\U0000ffff]",
+        flags=re.UNICODE,
     ).sub("", text)
-
-
-if __name__ == "__main__":
-    print(clean_emoji("hello 🔙"))
