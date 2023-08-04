@@ -234,7 +234,7 @@ def runner(args):
                         query=args.search, page=args.page, limit=args.limit
                     )
                 )
-            loop.run_until_complete(news.get_news(args.page))
+            loop.run_until_complete(news.get_news(page=args.page))
 
         elif args.marketplace:
             if args.trending:
@@ -254,6 +254,7 @@ def runner(args):
                     market.search_for_product(
                         query=args.search,
                         page=args.page + 1 if not args.page else args.page,
+                        limit=args.limit,
                     )
                 )
 
@@ -276,7 +277,8 @@ def runner(args):
             loop.run_until_complete(
                 telebirr.export_transaction(args.transaction, args.path)
             )
-        loop.run_until_complete(ask_questions())
+        else:
+            loop.run_until_complete(ask_questions())
     except KeyboardInterrupt:
         print("Bye!")
         sys.exit()

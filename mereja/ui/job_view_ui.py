@@ -71,11 +71,11 @@ class JobView(App):
             key="o",
             description="Open link in browser",
         ),
-        Binding(
-            action="find",
-            key="f",
-            description="Find",
-        ),
+        # Binding(
+        #     # action="find",
+        #     key="f",
+        #     description="Find",
+        # ),
         # Binding(
         #     action="save",
         #     key="s",
