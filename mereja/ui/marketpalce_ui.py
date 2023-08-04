@@ -62,9 +62,9 @@ def product_details(product: Product) -> Panel:
         f"[b]Posted:[/b] ",
         f"[blue b]:date: {product.date_created.strftime('%d %b %Y')}[/blue b]",
     )
-    details.add_row(f"[b]Views:[/b]", f"[blue b]{product.page_views}[/blue b]")
-    details.add_row(f"[b]Likes:[/b]", f"[blue b]:thumbsup:{product.fav_count}[/blue b]")
-    details.add_row(f"[b]Price:[/b]", f"[blue b]:dollar:{product.price} ETB[/blue b]")
+    details.add_row(f"[b]Views:[/b]", f"[blue b]:eye: {product.page_views}[/blue b]")
+    details.add_row(f"[b]Likes:[/b]", f"[blue b]:thumbsup: {product.fav_count}[/blue b]")
+    details.add_row(f"[b]Price:[/b]", f"[blue b]:dollar: {product.price} ETB[/blue b]")
     details.add_row(f"[b]Category:[/b]", f"[blue]{product.category_slug}[/blue]")
     if product.price_valuation:
         details.add_row(
