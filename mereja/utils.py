@@ -4,7 +4,7 @@ import random
 import re
 import time
 from contextlib import contextmanager
-from functools import wraps
+from functools import wraps, partial
 from pathlib import Path
 from typing import Callable
 
@@ -12,10 +12,10 @@ import httpx
 import qrcode
 import questionary
 from bs4 import BeautifulSoup
+from httpcore import ConnectTimeout
 from httpx import ConnectError
 from questionary import Choice
 from rich.console import Console
-from rich.status import Status
 from rich.table import Table
 
 from mereja import constants
@@ -113,14 +113,16 @@ def with_live(text: str):
                 except KeyboardInterrupt:
                     print("Exiting...")
                     exit(0)
-                # except Exception as e:
-                #     print(e)
-                #     exit(1)
+                except ConnectTimeout:
+                    console.print("[bold red]Connection timeout.")
+                    exit(1)
+                except Exception as e:
+                    print(e)
+                    exit(1)
 
         return wrapper
 
     return decorator
-
 
 
 def save_file(file_name: str, content: str):
@@ -130,3 +132,14 @@ def save_file(file_name: str, content: str):
 def get_path(p: str | None, name: str) -> str:
     p = p or "."
     return p if p.endswith(".json") else p + f"/{name}.json"
+
+
+def awaitable(func):
+    @wraps(func)
+    async def run(*args, loop=None, executor=None, **kwargs):
+        if loop is None:
+            loop = asyncio.get_event_loop()
+        pfunc = partial(func, *args, **kwargs)
+        return await loop.run_in_executor(executor, pfunc)
+
+    return run

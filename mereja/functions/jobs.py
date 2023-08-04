@@ -76,10 +76,7 @@ async def export_latest_jobs(path: str, status: Status, limit: int):
     for job in jobs:
         jop_de = await job.get_details()
         dict_jobs.append(jop_de.dict())
-    save_file(
-        path,
-        json.dumps(dict_jobs, indent=4),
-    )
+    save_file(path, json.dumps(dict_jobs, indent=4))
     status.console.print(
         f"[bold green]Successfully exported {len(dict_jobs)} jobs to {path}"
     )

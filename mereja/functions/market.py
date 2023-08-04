@@ -13,7 +13,7 @@ async def search_for_product(
     query: str,
     status: Status,
     page: int = 1,
-    limit: int = 10,
+    limit: int = -1,
 ) -> None:
     jiji = JiJi()
     product = await jiji.search(query, page)
@@ -29,7 +29,8 @@ async def search_for_product(
         message="Select a product",
         choice=[
             Choice(
-                f"{product.title} - [{product.price}]",
+                f"{product.title} - [{product.price} ETB] "
+                f"{f' ({product.price_type})' if product.price_type else ' (Fixed)'}",
                 value=product.id,
             )
             for product in products
@@ -42,7 +43,7 @@ async def search_for_product(
 
 
 @with_live("Getting trending products...")
-async def get_trending_products(status: Status, limit: int, page: int = 1) -> None:
+async def get_trending_products(status: Status, limit: int = -1, page: int = 1) -> None:
     jiji = JiJi()
     products = await jiji.get_trending(page)
     if not products:
@@ -55,7 +56,8 @@ async def get_trending_products(status: Status, limit: int, page: int = 1) -> No
         message="Select a product",
         choice=[
             Choice(
-                f"{product.title} - [{product.price} ETB] {f' ({product.price_type})' if product.price_type else 'Fixed'}",
+                f"{product.title} - [{product.price} ETB]"
+                f" {f' ({product.price_type})' if product.price_type else ' (Fixed)'}",
                 value=product.id,
             )
             for product in products

@@ -2,7 +2,198 @@ import argparse
 import asyncio
 import sys
 
+import questionary
+
+from mereja import constants
 from mereja.functions import forex, telebirr, market, news, jobs
+from mereja.utils import awaitable
+
+questions = [
+    {
+        "type": "select",
+        "name": "answer",
+        "message": "What do you want to do?",
+        "choices": [
+            "📈 Forex",
+            "📝 News",
+            "💼 Jobs",
+            "🛍 Marketplace",
+            "💳 Telebirr",
+            "🛑 Exit",
+        ],
+    },
+    {
+        "type": "select",
+        "name": "forex_choice",
+        "message": "What do you want to do?",
+        "choices": ["📈 Get forex", "📈 🚦 Get forex Live", "📂 Export forex data", "Back"],
+        "qmark": "📈",
+        "when": lambda answers: answers.get("answer") == "📈 Forex",
+    },
+    {
+        "type": "select",
+        "name": "choice",
+        "message": "What do you want to do with news?",
+        "choices": ["📝 Get latest news", "🔍 Search for news", "Back"],
+        "qmark": "📝",
+        "when": lambda answers: answers.get("answer") == "📝 News",
+    },
+    {
+        "type": "select",
+        "name": "choice",
+        "message": "What do you want to do with jobs?",
+        "choices": ["Get latest jobs", "🔍 Search for jobs", "Back"],
+        "qmark": "💼",
+        "when": lambda answers: answers.get("answer") == "💼 Jobs",
+    },
+    {
+        "type": "select",
+        "name": "choice",
+        "message": "What do you want to do with marketplace?",
+        "choices": ["📈 Get trending products", "🔍 Search for products", "Back"],
+        "qmark": "🛍",
+        "when": lambda answers: answers.get("answer") == "🛍 Marketplace",
+    },
+    {
+        "type": "select",
+        "name": "telebirr_choice",
+        "message": "What do you want to do with telebirr?",
+        "choices": ["💳 Transaction Details", "📂 Export transaction data", "Back"],
+        "qmark": "💳",
+        "when": lambda answers: answers.get("answer") == "💳 Telebirr",
+    },
+    {
+        "type": "text",
+        "name": "transaction_id",
+        "message": "💳 Enter your transaction ID:",
+        "when": lambda answers: answers.get("telebirr_choice")
+        in ["💳 Transaction Details", "📂 Export transaction data"],
+    },
+    {
+        "type": "confirm",
+        "name": "exit",
+        "message": "Are you sure you want to exit?",
+        "default": True,
+        "when": lambda answers: answers.get("answer") == "🛑 Exit",
+    },
+    {
+        "type": "text",
+        "name": "search",
+        "message": "Enter your search query:",
+        "when": lambda answers: "Search" in answers.get("choice", ""),
+    },
+    {
+        "type": "text",
+        "name": "path",
+        "message": "Enter the path to save the file:",
+        "when": lambda answers: answers.get("forex_choice") in ["📂 Export forex data"]
+        or answers.get("telebirr_choice") in ["📂 Export transaction data"],
+        "validate": lambda val: (val and val.endswith(".json"))
+        or "Path must end with .json",
+    },
+    {
+        "type": "text",
+        "name": "page",
+        "message": "Enter the page number:",
+        "when": lambda answers: answers.get("choice")
+        in [
+            "Get latest jobs",
+            "📝 Get latest news",
+            "📈 Get trending products",
+            "🔍 Search for products",
+        ],
+        "validate": lambda val: val.isdigit() or "Page number must be a number",
+        "filter": lambda val: int(val),
+        "default": "1",
+    },
+]
+
+
+@awaitable
+def show_menu():
+    ans = questionary.prompt(
+        questions,
+        style=constants.STYLE,
+        qmark="📡",
+    )
+    return ans
+
+
+async def parse_answers(answers):
+    if answers.get("answer") == "📈 Forex":
+        if answers.get("forex_choice") == "📈 Get forex":
+            await forex.get_forex(False)
+
+        elif answers.get("forex_choice") == "📈 🚦 Get forex Live":
+            await forex.get_forex(live=True)
+
+        elif answers.get("forex_choice") == "📂 Export forex data":
+            await forex.export_forex_data(path=answers.get("path"))
+
+        elif answers.get("forex_choice") == "Back":
+            return
+    elif answers.get("answer") == "📝 News":
+        if answers.get("choice") == "📝 Get latest news":
+            await news.get_news(page=answers.get("page"))
+
+        elif answers.get("choice") == "🔍 Search for news":
+            await news.search_news(
+                query=answers.get("search"), page=answers.get("page")
+            )
+
+        elif answers.get("choice") == "Back":
+            return
+
+    elif answers.get("answer") == "💼 Jobs":
+        if answers.get("choice") == "Get latest jobs":
+            await jobs.get_latest_jobs()
+
+        elif answers.get("choice") == "🔍 Search for jobs":
+            await jobs.search_for_job()
+
+        elif answers.get("choice") == "Back":
+            return
+
+    elif answers.get("answer") == "🛍 Marketplace":
+        if answers.get("choice") == "📈 Get trending products":
+            await market.get_trending_products()
+
+        elif answers.get("choice") == "🔍 Search for products":
+            await market.search_for_product(
+                query=answers.get("search"), page=answers.get("page")
+            )
+
+        elif answers.get("choice") == "Back":
+            return
+
+    elif answers.get("answer") == "💳 Telebirr":
+        if answers.get("telebirr_choice") == "💳 Transaction Details":
+            await telebirr.check_transaction(
+                transaction_id=answers.get("transaction_id")
+            )
+
+        elif answers.get("telebirr_choice") == "📂 Export transaction data":
+            await telebirr.export_transaction(
+                path=answers.get("path"),
+                transaction_id=answers.get("transaction_id"),
+            )
+
+        elif answers.get("telebirr_choice") == "Back":
+            return
+
+    elif answers.get("answer") == "🛑 Exit":
+        if answers.get("exit"):
+            sys.exit(0)
+
+
+async def ask_questions():
+    while True:
+        try:
+            answers = await show_menu()
+            await parse_answers(answers)
+        except KeyboardInterrupt:
+            print("Exiting...")
+            sys.exit(0)
 
 
 def runner(args):
@@ -85,6 +276,7 @@ def runner(args):
             loop.run_until_complete(
                 telebirr.export_transaction(args.transaction, args.path)
             )
+        loop.run_until_complete(ask_questions())
     except KeyboardInterrupt:
         print("Bye!")
         sys.exit()

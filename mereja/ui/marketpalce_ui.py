@@ -29,7 +29,7 @@ def make_layout() -> Layout:
         Layout(name="seller"),
         Layout(
             name="qr",
-            ratio=2,
+            ratio=3,
         ),
     )
     return layout
@@ -79,7 +79,6 @@ def product_details(product: Product) -> Panel:
     return Panel(
         Group(
             Align.center(attributes, vertical="middle"),
-            "\n",
             Align.center(details, vertical="middle"),
         ),
         border_style="green",

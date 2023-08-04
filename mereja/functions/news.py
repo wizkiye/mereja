@@ -10,7 +10,10 @@ from mereja.utils import ask, with_live, save_file, get_path
 
 @with_live("Searching for {query}...")
 async def search_news(
-    query: str, status: Status, page: int = 1, limit: int = 10
+    query: str,
+    status: Status,
+    page: int = 1,
+    limit: int = 10,
 ) -> None:
     voa = VOAAmharic()
     news = await voa.search(query, page, limit)
@@ -36,7 +39,7 @@ async def search_news(
 
 
 @with_live("Getting latest news...")
-async def get_news(page: int, status: Status) -> None:
+async def get_news(status: Status, page: int = 1) -> None:
     voa = VOAAmharic()
     news = await voa.get_world_wide_news(page)
     if not news:
@@ -62,7 +65,11 @@ async def get_news(page: int, status: Status) -> None:
 
 @with_live("Getting latest news...")
 async def export_news(
-    status: Status, page: int, limit: int, path: str, query: str = None
+    status: Status,
+    page: int,
+    limit: int,
+    path: str,
+    query: str = None,
 ) -> None:
     voa = VOAAmharic()
     if query:
