@@ -40,8 +40,8 @@ def create_table(forex: list[dict], title: str) -> Table:
         title_style="bold green",
     )
     table.add_column("Currency")
-    table.add_column("Buy", justify="right")
-    table.add_column("Sell", justify="right")
+    table.add_column("Buying RATE", justify="right")
+    table.add_column("Selling RATE", justify="right")
     for f in forex:
         table.add_row(
             f'[blue]{f["currency"]}', f'[cyan]{f["buy"]} ETB', f'[green]{f["sell"]} ETB'
