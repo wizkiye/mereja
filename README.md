@@ -13,6 +13,7 @@ Mereja is a versatile Python application that provides both a Command-Line Inter
 - Find trending products on marketplaces.
 - Retrieve telebirr transaction details.
 - Command-line interface for easy interaction.
+- Text-based User Interface (TUI) for interactive browsing.
 
 ## Installation
 
