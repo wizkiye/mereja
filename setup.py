@@ -10,8 +10,8 @@ setup(
     name="mereja",
     version="0.0.1",
     packages=find_packages(),
-    url="",
-    license="",
+    url="https://github.com/wizkiye/mereja",
+    license="MIT",
     author="Kidus",
     author_email="wizkiye@gmail.com",
     description="",
@@ -35,8 +35,4 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     python_requires=">=3.8",
-    classifiers=[
-        "Environment :: Console",
-        "Environment :: OS Independent",
-    ],
 )
