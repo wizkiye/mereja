@@ -1,4 +1,5 @@
 import asyncio
+from typing import List
 
 from rich.align import Align
 from rich.console import Console
@@ -11,7 +12,7 @@ from mereja.utils import get_forex_data, rmv_etb
 install()
 
 
-async def make_forex_table(forex: list[dict], live: bool) -> Align | Table | None:
+async def make_forex_table(forex: List[dict], live: bool) -> Align | Table | None:
     if live:
         table = create_table(forex, "Live Forex Data")
         with Live(
@@ -31,7 +32,7 @@ async def make_forex_table(forex: list[dict], live: bool) -> Align | Table | Non
     return Align.center(create_table(forex, "Forex Data"))
 
 
-def create_table(forex: list[dict], title: str) -> Table:
+def create_table(forex: List[dict], title: str) -> Table:
     """Make a table for forex data."""
     table = Table(
         show_header=True,
@@ -49,7 +50,7 @@ def create_table(forex: list[dict], title: str) -> Table:
     return table
 
 
-def check_changes(forex: list[dict], new_forex: list[dict]) -> bool:
+def check_changes(forex: List[dict], new_forex: List[dict]) -> bool:
     """Check if there is a change in forex data."""
     for f, n in zip(forex, new_forex):
         if rmv_etb(f["buy"]) != rmv_etb(n["buy"]) or rmv_etb(f["sell"]) != rmv_etb(
@@ -59,7 +60,7 @@ def check_changes(forex: list[dict], new_forex: list[dict]) -> bool:
     return False
 
 
-def get_changes(forex: list[dict], new_forex: list[dict]) -> list[dict]:
+def get_changes(forex: List[dict], new_forex: List[dict]) -> List[dict]:
     """Get the changes in forex data."""
     changes = []
     for f, n in zip(forex, new_forex):
