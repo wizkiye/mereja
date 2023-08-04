@@ -29,6 +29,14 @@ setup(
     entry_points={
         "console_scripts": [
             "mereja = mereja.main:main",
-        ]
+        ],
     },
+    long_description=read_file("README.md"),
+    long_description_content_type="text/markdown",
+    include_package_data=True,
+    python_requires=">=3.8",
+    classifiers=[
+        "Environment :: Console",
+        "Environment :: OS Independent",
+    ],
 )

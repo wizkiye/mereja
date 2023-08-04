@@ -234,6 +234,7 @@ def runner(args):
                         query=args.search, page=args.page, limit=args.limit
                     )
                 )
+                return
             loop.run_until_complete(news.get_news(page=args.page))
 
         elif args.marketplace:
@@ -285,7 +286,15 @@ def runner(args):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description=(
+            "Mereja is a versatile Python application that provides both a Command-Line Interface (CLI) and a "
+            "Text-based User Interface (TUI). The app allows users to access and display various data, including the "
+            "latest news, jobs, forex data, trending products for marketplaces, and telebirr transaction details. "
+            "Additionally, it provides a search functionality for finding jobs, news articles, and marketplace "
+            "products, making it a one-stop solution for information retrieval."
+        ),
+    )
 
     # main functions
     parser.add_argument("--job", "-j", action="store_true", help="Jobs")
