@@ -72,6 +72,13 @@ def loop_row(table: Table, rows: list[tuple]):
 
 
 async def ask(message: str, choice: list[Choice]):
+    choice.append(
+        Choice(
+            title="🔙 Back",
+            value="back",
+        )
+    )
+
     return await questionary.select(
         message=message,
         choices=choice,

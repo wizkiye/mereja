@@ -26,7 +26,12 @@ questions = [
         "type": "select",
         "name": "forex_choice",
         "message": "What do you want to do?",
-        "choices": ["📈 Get forex", "📈 🚦 Get forex Live", "📂 Export forex data", "Back"],
+        "choices": [
+            "📈 Get forex",
+            "📈 🚦 Get forex Live",
+            "📂 Export forex data",
+            "🔙 Back",
+        ],
         "qmark": "📈",
         "when": lambda answers: answers.get("answer") == "📈 Forex",
     },
@@ -34,7 +39,7 @@ questions = [
         "type": "select",
         "name": "choice",
         "message": "What do you want to do with news?",
-        "choices": ["📝 Get latest news", "🔍 Search for news", "Back"],
+        "choices": ["📝 Get latest news", "🔍 Search for news", "🔙 Back"],
         "qmark": "📝",
         "when": lambda answers: answers.get("answer") == "📝 News",
     },
@@ -42,7 +47,7 @@ questions = [
         "type": "select",
         "name": "choice",
         "message": "What do you want to do with jobs?",
-        "choices": ["Get latest jobs", "🔍 Search for jobs", "Back"],
+        "choices": ["Get latest jobs", "🔍 Search for jobs", "🔙 Back"],
         "qmark": "💼",
         "when": lambda answers: answers.get("answer") == "💼 Jobs",
     },
@@ -50,7 +55,7 @@ questions = [
         "type": "select",
         "name": "choice",
         "message": "What do you want to do with marketplace?",
-        "choices": ["📈 Get trending products", "🔍 Search for products", "Back"],
+        "choices": ["📈 Get trending products", "🔍 Search for products", "🔙 Back"],
         "qmark": "🛍",
         "when": lambda answers: answers.get("answer") == "🛍 Marketplace",
     },
@@ -58,7 +63,7 @@ questions = [
         "type": "select",
         "name": "telebirr_choice",
         "message": "What do you want to do with telebirr?",
-        "choices": ["💳 Transaction Details", "📂 Export transaction data", "Back"],
+        "choices": ["💳 Transaction Details", "📂 Export transaction data", "🔙 Back"],
         "qmark": "💳",
         "when": lambda answers: answers.get("answer") == "💳 Telebirr",
     },
@@ -130,7 +135,7 @@ async def parse_answers(answers):
         elif answers.get("forex_choice") == "📂 Export forex data":
             await forex.export_forex_data(path=answers.get("path"))
 
-        elif answers.get("forex_choice") == "Back":
+        elif answers.get("forex_choice") == "🔙 Back":
             return
     elif answers.get("answer") == "📝 News":
         if answers.get("choice") == "📝 Get latest news":
@@ -141,7 +146,7 @@ async def parse_answers(answers):
                 query=answers.get("search"), page=answers.get("page")
             )
 
-        elif answers.get("choice") == "Back":
+        elif answers.get("choice") == "🔙 Back":
             return
 
     elif answers.get("answer") == "💼 Jobs":
@@ -151,9 +156,8 @@ async def parse_answers(answers):
         elif answers.get("choice") == "🔍 Search for jobs":
             await jobs.search_for_job()
 
-        elif answers.get("choice") == "Back":
+        elif answers.get("choice") == "🔙 Back":
             return
-
     elif answers.get("answer") == "🛍 Marketplace":
         if answers.get("choice") == "📈 Get trending products":
             await market.get_trending_products()
@@ -163,7 +167,7 @@ async def parse_answers(answers):
                 query=answers.get("search"), page=answers.get("page")
             )
 
-        elif answers.get("choice") == "Back":
+        elif answers.get("choice") == "🔙 Back":
             return
 
     elif answers.get("answer") == "💳 Telebirr":
@@ -178,12 +182,14 @@ async def parse_answers(answers):
                 transaction_id=answers.get("transaction_id"),
             )
 
-        elif answers.get("telebirr_choice") == "Back":
+        elif answers.get("telebirr_choice") == "🔙 Back":
             return
 
     elif answers.get("answer") == "🛑 Exit":
         if answers.get("exit"):
             sys.exit(0)
+
+    return await parse_answers(answers)
 
 
 async def ask_questions():

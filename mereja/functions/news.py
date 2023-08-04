@@ -32,7 +32,7 @@ async def search_news(
             for news in news
         ],
     )
-    if not ans:
+    if not ans or ans == "🔙 Back":
         return
     news = await voa.get(ans)
     await NewsView(news).run_async()
@@ -57,7 +57,7 @@ async def get_news(status: Status, page: int = 1) -> None:
             for news in news
         ],
     )
-    if not ans:
+    if not ans or ans == "🔙 Back":
         return
     news = await voa.get(ans)
     await NewsView(news).run_async()

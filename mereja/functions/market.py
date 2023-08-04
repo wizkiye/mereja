@@ -36,7 +36,7 @@ async def search_for_product(
             for product in products
         ],
     )
-    if not ans:
+    if not ans or ans == "🔙 Back":
         return
     product = await jiji.get_product(ans)
     start_market_ui(product)
@@ -63,7 +63,7 @@ async def get_trending_products(status: Status, limit: int = -1, page: int = 1) 
             for product in products
         ],
     )
-    if not ans:
+    if not ans or ans == "🔙 Back":
         return
     product = await jiji.get_product(ans)
     start_market_ui(product)
