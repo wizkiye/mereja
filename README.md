@@ -67,6 +67,18 @@ options:
 ```
 
 ## Examples
+
+<details>
+<summary>Without any options</summary>
+
+```bash
+# Without any options
+mereja
+```
+![Made with VHS](https://vhs.charm.sh/vhs-3U79nZQbOZOCFYqxnIu0d0.gif)
+
+</details>
+
 <details>
 <summary>Get latest jobs</summary>
 
