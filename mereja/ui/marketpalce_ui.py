@@ -52,17 +52,17 @@ def product_details(product: Product) -> Panel:
     details.add_column(justify="left", ratio=1)
     details.add_row(
         f"[b]Description:[/b] ",
-        f"[blue i]" + product.description.replace("<br>", " "),
+        f"[blue i]" + product.description.replace("<br>", " ").strip(),
     )
     details.add_row(
         f"[b]Location:[/b]",
-        f"[blue]:earth_africa: {', '.join(product.regions_display)}[/blue]",
+        f"[blue]:earth_africa: {', '.join(product.regions_display).strip()}[/blue]",
     )
     details.add_row(
         f"[b]Posted:[/b] ",
         f"[blue b]:date: {product.date_created.strftime('%d %b %Y')}[/blue b]",
     )
-    details.add_row(f"[b]Views:[/b]", f"[blue b]:eye:  {product.page_views}[/blue b]")
+    details.add_row(f"[b]Views:[/b]", f"[blue b]:eye: {product.page_views}[/blue b]")
     details.add_row(
         f"[b]Likes:[/b]", f"[blue b]:thumbsup: {product.fav_count}[/blue b]"
     )
