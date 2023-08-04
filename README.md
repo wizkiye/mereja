@@ -69,7 +69,7 @@ options:
 ## Examples
 
 <details>
-<summary>Without any options</summary>
+<summary>RUN without any options/args</summary>
 
 ```bash
 # Without any options
@@ -174,7 +174,7 @@ mereja --news --search "ራሽያ"
 # Export to file
 mereja --job --latest --export --path "jobs.json"
 
-# you can use the -e flag in any command to export to file i think :)
+# You can use the -e flag in commands to export data to a JSON file, I think.
 ```
 
 </details>
