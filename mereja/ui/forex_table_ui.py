@@ -1,5 +1,5 @@
 import asyncio
-from typing import List
+from typing import List, Union
 
 from rich.align import Align
 from rich.console import Console
@@ -12,7 +12,7 @@ from mereja.utils import get_forex_data, rmv_etb
 install()
 
 
-async def make_forex_table(forex: List[dict], live: bool) -> Align | Table | None:
+async def make_forex_table(forex: List[dict], live: bool) -> Union[Align, Table, None]:
     if live:
         table = create_table(forex, "Live Forex Data")
         with Live(

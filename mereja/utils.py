@@ -6,7 +6,7 @@ import time
 from contextlib import contextmanager
 from functools import wraps, partial
 from pathlib import Path
-from typing import Callable, List
+from typing import Callable, List, Union
 
 import httpx
 import qrcode
@@ -141,7 +141,7 @@ def save_file(file_name: str, content: str):
     Path(file_name).write_text(content)
 
 
-def get_path(p: str | None, name: str) -> str:
+def get_path(p: Union[str, None], name: str) -> str:
     p = p or "."
     return p if p.endswith(".json") else p + f"/{name}.json"
 
