@@ -21,6 +21,10 @@ from rich.table import Table
 from mereja import constants
 
 
+class Back(Exception):
+    pass
+
+
 def random_spinner():
     return random.choice(constants.SPINNERS)
 
@@ -72,12 +76,12 @@ def loop_row(table: Table, rows: list[tuple]):
 
 
 async def ask(message: str, choice: list[Choice]):
-    choice.append(
-        Choice(
-            title="🔙 Back",
-            value="back",
-        )
-    )
+    # choice.append(
+    #     Choice(
+    #         title="🔙 Back",
+    #         value="back",
+    #     )
+    # )
 
     return await questionary.select(
         message=message,
@@ -118,8 +122,9 @@ def with_live(text: str):
                     console.print("[bold red]No internet connection.")
                     exit(1)
                 except KeyboardInterrupt:
-                    print("Exiting...")
-                    exit(0)
+                    # print("Exiting...")
+                    # exit(0)
+                    return
                 except ConnectTimeout:
                     console.print("[bold red]Connection timeout.")
                     exit(1)
@@ -150,3 +155,8 @@ def awaitable(func):
         return await loop.run_in_executor(executor, pfunc)
 
     return run
+
+
+def no_ans_or_back(ans: str):
+    if not ans:
+        raise KeyboardInterrupt

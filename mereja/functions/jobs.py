@@ -5,7 +5,7 @@ from questionary import Choice
 from rich.status import Status
 
 from mereja.ui import JobView
-from mereja.utils import ask, with_live, save_file, get_path
+from mereja.utils import ask, with_live, save_file, get_path, no_ans_or_back
 
 
 @with_live("Searching for {query}...")
@@ -20,8 +20,7 @@ async def search_for_job(query: str, status: Status) -> None:
         message="Select a job",
         choice=[Choice(job.title, value=job.job_id) for job in jobs],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     job = await EthioJobs().get_job(ans)
     await JobView(job).run_async()
 
@@ -38,8 +37,7 @@ async def get_government_jobs(status: Status):
         message="Select a job",
         choice=[Choice(job.company, value=job.job) for job in jobs],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     job = await EthioJobs().get_job(ans)
     await JobView(job).run_async()
 
@@ -56,8 +54,7 @@ async def get_latest_jobs(status: Status):
         message="Select a job",
         choice=[Choice(job.title, value=job.job_id) for job in jobs],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     job = await EthioJobs().get_job(ans)
     await JobView(job).run_async()
 

@@ -6,7 +6,7 @@ import questionary
 
 from mereja import constants
 from mereja.functions import forex, telebirr, market, news, jobs
-from mereja.utils import awaitable
+from mereja.utils import awaitable, Back
 
 questions = [
     {
@@ -188,8 +188,6 @@ async def parse_answers(answers):
     elif answers.get("answer") == "🛑 Exit":
         if answers.get("exit"):
             sys.exit(0)
-
-    return await parse_answers(answers)
 
 
 async def ask_questions():

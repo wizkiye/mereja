@@ -5,7 +5,7 @@ from questionary import Choice
 from rich.status import Status
 
 from mereja.ui import start_market_ui
-from mereja.utils import ask, with_live, save_file, get_path
+from mereja.utils import ask, with_live, save_file, get_path, no_ans_or_back
 
 
 @with_live("Searching for {query}...")
@@ -36,8 +36,7 @@ async def search_for_product(
             for product in products
         ],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     product = await jiji.get_product(ans)
     start_market_ui(product)
 
@@ -63,8 +62,7 @@ async def get_trending_products(status: Status, limit: int = -1, page: int = 1) 
             for product in products
         ],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     product = await jiji.get_product(ans)
     start_market_ui(product)
 

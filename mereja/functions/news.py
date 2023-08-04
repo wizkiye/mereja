@@ -5,7 +5,7 @@ from questionary import Choice
 from rich.status import Status
 
 from mereja.ui import NewsView
-from mereja.utils import ask, with_live, save_file, get_path
+from mereja.utils import ask, with_live, save_file, get_path, no_ans_or_back
 
 
 @with_live("Searching for {query}...")
@@ -32,8 +32,7 @@ async def search_news(
             for news in news
         ],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     news = await voa.get(ans)
     await NewsView(news).run_async()
 
@@ -57,8 +56,7 @@ async def get_news(status: Status, page: int = 1) -> None:
             for news in news
         ],
     )
-    if not ans or ans == "🔙 Back":
-        return
+    no_ans_or_back(ans)
     news = await voa.get(ans)
     await NewsView(news).run_async()
 
