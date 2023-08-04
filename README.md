@@ -72,7 +72,7 @@ options:
 <summary>RUN without any options/args</summary>
 
 ```bash
-# Without any options
+# Running without any options/args
 mereja
 ```
 ![Made with VHS](https://vhs.charm.sh/vhs-3U79nZQbOZOCFYqxnIu0d0.gif)
