@@ -6,7 +6,7 @@ import time
 from contextlib import contextmanager
 from functools import wraps, partial
 from pathlib import Path
-from typing import Callable
+from typing import Callable, List
 
 import httpx
 import qrcode
@@ -47,7 +47,7 @@ def bold_numbers(text: str) -> str:
     return re.sub(r"(\d+)", r"[b]\1[/b]", text)
 
 
-async def get_forex_data() -> list[dict]:
+async def get_forex_data() -> List[dict]:
     """Get forex data from CBE."""
     async with httpx.AsyncClient() as client:
         response = await client.get(constants.FOREX_URL)
@@ -63,19 +63,19 @@ async def get_forex_data() -> list[dict]:
         ]
 
 
-def loop_colum(table: Table, columns: list):
+def loop_colum(table: Table, columns: List):
     for column in columns:
         with beat(5):
             table.add_column(column)
 
 
-def loop_row(table: Table, rows: list[tuple]):
+def loop_row(table: Table, rows: List[tuple]):
     for row in rows:
         with beat(5):
             table.add_row(*row)
 
 
-async def ask(message: str, choice: list[Choice]):
+async def ask(message: str, choice: List[Choice]):
     # choice.append(
     #     Choice(
     #         title="🔙 Back",
