@@ -97,7 +97,7 @@ class Header:
 
 def user_details(user: User) -> Align:
     return Align.center(
-        f"[b]Seller Name:[/b] [u blue]🙎 {user.name}[/u blue]\n"
+        f"[b]Seller Name:[/b] [u blue]{user.name}[/u blue]\n"
         f"[b]Phone Number:[/b] [blue]📞 {', '.join(user.phones)}[/blue]\n"
         f"[b]Email:[/b] [blue]📧 {user.email}[/blue]\n"
         f"[b]lastSeen:[/b] [blue]👀 {user.last_seen}[/blue]\n"
