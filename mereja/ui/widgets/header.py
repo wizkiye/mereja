@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Union
 
 from rich.text import Text
 from textual import events
@@ -96,8 +97,8 @@ class Header(Widget):
         show_clock: bool = False,
         title: str = "</> with ❤️ by @wizkiye",
         *,
-        classes: str | None = None,
-        id: str | None = None,
+        classes: Union[str, None] = None,
+        id: Union[str, None] = None,
     ):
         super().__init__(classes=classes, id=id)
         self._show_clock = show_clock
