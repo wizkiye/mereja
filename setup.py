@@ -8,7 +8,7 @@ def read_file(filename: str):
 
 setup(
     name="mereja",
-    version="0.0.4",
+    version="0.0.5",
     packages=find_packages(),
     url="https://github.com/wizkiye/mereja",
     license="MIT",
