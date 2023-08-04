@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import emoji
 from rich.text import Text
 from textual import events
 from textual.app import RenderResult
@@ -10,7 +9,7 @@ from textual.widget import Widget
 
 
 class HeaderIcon(Widget):
-    def __init__(self, icon: str = emoji.emojize(":memo:")) -> None:
+    def __init__(self, icon: str = "📝") -> None:
         super().__init__()
         self.icon = icon
 
