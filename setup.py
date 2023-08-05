@@ -25,6 +25,7 @@ setup(
         "pyEthioNews",
         "jiji",
         "telebirrTxChecker",
+        "linkify-it-py",
     ],
     entry_points={
         "console_scripts": [
