@@ -22,7 +22,7 @@ Mereja is a versatile Python application that provides both a Command-Line Inter
 
 ```bash
 # for latest version
-pip install git+https://github.com/your-username/your-repo-name.git
+pip install git+https://github.com/wizkiye/mereja.git
 # or 
 pip install mereja -U
 ```
