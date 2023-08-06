@@ -1,6 +1,6 @@
 # Mereja
 
-[![Python](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue)](https://www.python.org/)
 
 
 ## Description
@@ -185,6 +185,15 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+# Dependencies
+* rich
+* textual
+* questionary
+* pyEthioJobs
+* pyEthioNews
+* jiji
+* telebirrTxChecker 
 
 
 
