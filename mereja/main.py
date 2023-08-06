@@ -220,7 +220,6 @@ def main():
     parser.add_argument("--path", "-pa", help="Path to export file")
 
     args = parser.parse_args()
-
     runner(args)
 
 
