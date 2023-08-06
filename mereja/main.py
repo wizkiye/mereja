@@ -5,7 +5,7 @@ import sys
 import questionary
 
 from mereja import constants
-from mereja.functions import forex, telebirr, market, news, jobs
+from mereja.functions import news, forex, market, telebirr, jobs
 from mereja.utils import awaitable
 
 
@@ -49,7 +49,7 @@ async def parse_answers(answers):
             await jobs.get_latest_jobs()
 
         elif answers.get("choice") == "🔍 Search for jobs":
-            await jobs.search_for_job()
+            await jobs.search_for_job(query=answers.get("search"))
 
         elif answers.get("choice") == "🔙 Back":
             return
